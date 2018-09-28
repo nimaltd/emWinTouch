@@ -1,5 +1,7 @@
 
 
+#include "GUI.h"
+#include "WM.h"
 #include "spitouchemwin.h"
 #include "spitouchemwinConfig.h"
 
@@ -107,6 +109,10 @@ bool SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData)
   int16_t i;
   int xSize, ySize;
 	
+	WM_Deactivate();
+	GUI_SetBkColor(GUI_BLACK);
+	GUI_Clear();
+	
 	_TouchInCalibMode=1;
   xSize = LCD_GetXSize();
   ySize = LCD_GetYSize();
@@ -176,6 +182,7 @@ bool SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData)
 		StoreCalibrateData+=sizeof(ySize);
 		}
 	_TouchInCalibMode=0;
+	WM_Activate();
 	if(Bytes>20)
 		return true;
 	else
@@ -212,11 +219,11 @@ void	SpiTouchEmwin_Test(void)
 		GUI_PID_STATE TouchState;
   int           xPhys;
   int           yPhys;
-	
 	GUI_CURSOR_Show();
   GUI_CURSOR_Select(&GUI_CursorCrossL);
   GUI_SetBkColor(GUI_WHITE);
   GUI_SetColor(GUI_BLACK);
+	WM_Deactivate();
   GUI_Clear();
   GUI_DispString("Measurement of\nA/D converter values");
   while (1) {
