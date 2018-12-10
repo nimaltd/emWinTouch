@@ -1,7 +1,7 @@
 #ifndef _SPITOUCHEMWINCONFIG_H
 #define _SPITOUCHEMWINCONFIG_H
 
-#define   _TOUCHSCREEN_SPI             	hspi4
+#define   _TOUCHSCREEN_SPI             	hspi2
 
 #define   _TOUCHSCREEN_CS_GPIO         	TOUCH_CS_GPIO_Port  
 #define   _TOUCHSCREEN_CS_PIN          	TOUCH_CS_Pin

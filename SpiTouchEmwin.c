@@ -7,10 +7,10 @@
 
 osThreadId 	TouchTaskHandle;
 void 				StartTouchTask(void const * argument);
-static int _TouchInCalibMode=0;
-static int _TouchX;
-static int _TouchY;
-
+static int 	_TouchInCalibMode=0;
+static int 	_TouchX;
+static int 	_TouchY;
+uint8_t			SpiTouchEmwin_CalibrateData[128];
 
 void GUI_TOUCH_X_ActivateX(void) 
 {
@@ -57,11 +57,12 @@ void StartTouchTask(void const * argument)
 			osDelay(2);
 			HAL_SPI_TransmitReceive(&_TOUCHSCREEN_SPI,data_x,data_x,3,100);
 			HAL_GPIO_WritePin(_TOUCHSCREEN_CS_GPIO,_TOUCHSCREEN_CS_PIN,GPIO_PIN_SET);
-			
+			osDelay(10);
 			HAL_GPIO_WritePin(_TOUCHSCREEN_CS_GPIO,_TOUCHSCREEN_CS_PIN,GPIO_PIN_RESET);
 			osDelay(2);
 			HAL_SPI_TransmitReceive(&_TOUCHSCREEN_SPI,data_y,data_y,3,100);
 			HAL_GPIO_WritePin(_TOUCHSCREEN_CS_GPIO,_TOUCHSCREEN_CS_PIN,GPIO_PIN_SET);
+			osDelay(10);
 			
 			_TouchX = data_x[1];
 			_TouchX = ((_TouchX)<<8)+data_x[2];
@@ -82,7 +83,7 @@ void StartTouchTask(void const * argument)
 				GUI_TOUCH_StoreState(	_TouchX,_TouchY);
 		}
 		GUI_TOUCH_Exec();
-		osDelay(50);
+		osDelay(20);
 	}	
 }
 //#############################################################################################################################
