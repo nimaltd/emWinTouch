@@ -1,6 +1,6 @@
 # emWinTouch
 xpt2046 Touch drive for STemwin
-<br />Example:
+<br />Example: (use my eeprom Library)
 ```
 SpiTouchEmwin_Init(osPriorityBelowNormal);
 uint8_t	IsCalibrated=0xFF;
