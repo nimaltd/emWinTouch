@@ -1,7 +1,7 @@
 # emWinTouch
 xpt2046 Touch drive for STemwin
 <br />Example:
-'''
+,,,
 <br />SpiTouchEmwin_Init(osPriorityBelowNormal);
 <br />uint8_t	IsCalibrated=0xFF;
 <br />EEPROM24XX_Load(0,&IsCalibrated,1);
@@ -20,4 +20,4 @@ xpt2046 Touch drive for STemwin
 <br />  EEPROM24XX_Load(1,SpiTouchEmwin_CalibrateData,sizeof(SpiTouchEmwin_CalibrateData));
 <br />  SpiTouchEmwin_CalibrateLoad(SpiTouchEmwin_CalibrateData);		
 <br />}	
-'''
+,,,
