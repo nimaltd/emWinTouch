@@ -7,7 +7,7 @@ xpt2046 Touch drive for STemwin
 <br />EEPROM24XX_Load(0,&IsCalibrated,1);
 <br />if(IsCalibrated!=1)
 <br />{
-<br />  if(SpiTouchEmwin_CalibrateRun(SpiTouchEmwin_CalibrateData)==true)
+<br /><bt />  if(SpiTouchEmwin_CalibrateRun(SpiTouchEmwin_CalibrateData)==true)
 <br />  {
 <br />	  for(uint8_t i=0 ; i<128 ; i+=16)
 <br />	  EEPROM24XX_Save(1+i,&SpiTouchEmwin_CalibrateData[i],16);		
