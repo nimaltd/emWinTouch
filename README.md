@@ -1,5 +1,5 @@
 # emWinTouch
-xpt2046 Touch drive for STemwin
+xpt2046 Touch drive for STemWin
 <br />Example: (use my eeprom Library)
 ```
 SpiTouchEmwin_Init(osPriorityBelowNormal);
