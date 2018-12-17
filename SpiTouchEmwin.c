@@ -79,8 +79,7 @@ void StartTouchTask(void const * argument)
 		{
 			_TouchX=-1;
 			_TouchY=-1;
-			if(_TouchInCalibMode==1)
-				GUI_TOUCH_StoreState(	_TouchX,_TouchY);
+			GUI_TOUCH_StoreState(	_TouchX,_TouchY);
 		}
 		GUI_TOUCH_Exec();
 		osDelay(20);
