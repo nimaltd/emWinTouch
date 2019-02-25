@@ -5,12 +5,12 @@
 #include "spitouchemwin.h"
 #include "spitouchemwinConfig.h"
 
-osThreadId 	TouchTaskHandle;
-void 				StartTouchTask(void const * argument);
-static int 	_TouchInCalibMode=0;
-static int 	_TouchX;
-static int 	_TouchY;
-uint8_t			SpiTouchEmwin_CalibrateData[128];
+osThreadId 			TouchTaskHandle;
+void 				 		StartTouchTask(void const * argument);
+static uint8_t 	_TouchInCalibMode=0;
+static int16_t	_TouchX;
+static int16_t	_TouchY;
+uint8_t					SpiTouchEmwin_CalibrateData[88];
 
 void GUI_TOUCH_X_ActivateX(void) 
 {
@@ -99,15 +99,15 @@ bool SpiTouchEmwin_Init(osPriority Priority)
 //#############################################################################################################################
 bool SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData)
 {
-	int  NUM_CALIB_POINTS = 5;
-	int _aRefX[NUM_CALIB_POINTS];
-	int _aRefY[NUM_CALIB_POINTS];
-	int _aSamX[NUM_CALIB_POINTS];
-	int _aSamY[NUM_CALIB_POINTS];
+	int16_t NUM_CALIB_POINTS = 5;
+	int32_t _aRefX[NUM_CALIB_POINTS];
+	int32_t _aRefY[NUM_CALIB_POINTS];
+	int32_t _aSamX[NUM_CALIB_POINTS];
+	int32_t _aSamY[NUM_CALIB_POINTS];
 	
   GUI_PID_STATE State;
   int16_t i;
-  int xSize, ySize;
+  int16_t xSize, ySize;
 	
 	WM_Deactivate();
 	GUI_SetBkColor(GUI_BLACK);
@@ -162,7 +162,7 @@ bool SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData)
   //
   // Pass measured points to emWin
   //
-  GUI_TOUCH_CalcCoefficients(NUM_CALIB_POINTS,_aRefX,_aRefY,_aSamX,_aSamY, xSize, ySize);
+  GUI_TOUCH_CalcCoefficients(NUM_CALIB_POINTS,(int*)_aRefX,(int*)_aRefY,(int*)_aSamX,(int*)_aSamY, xSize, ySize);
 	uint8_t Bytes=0;
 	Bytes = sizeof(_aRefX)+sizeof(_aRefY)+sizeof(_aSamX)+sizeof(_aSamY)+sizeof(xSize)+sizeof(ySize);
 
@@ -183,6 +183,7 @@ bool SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData)
 		}
 	_TouchInCalibMode=0;
 	WM_Activate();
+	GUI_Clear();
 	if(Bytes>20)
 		return true;
 	else
@@ -191,12 +192,12 @@ bool SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData)
 //#############################################################################################################################
 void		  SpiTouchEmwin_CalibrateLoad(uint8_t	*StoreCalibrateData)
 {
-	int  NUM_CALIB_POINTS = 5;
-	int _aRefX[NUM_CALIB_POINTS];
-	int _aRefY[NUM_CALIB_POINTS];
-	int _aSamX[NUM_CALIB_POINTS];
-	int _aSamY[NUM_CALIB_POINTS];
-	int xSize, ySize;
+	int16_t  NUM_CALIB_POINTS = 5;
+	int32_t _aRefX[NUM_CALIB_POINTS];
+	int32_t _aRefY[NUM_CALIB_POINTS];
+	int32_t _aSamX[NUM_CALIB_POINTS];
+	int32_t _aSamY[NUM_CALIB_POINTS];
+	int16_t xSize, ySize;
  
 	GUI__memcpy(&_aRefX,StoreCalibrateData,sizeof(_aRefX));
 	StoreCalibrateData+=sizeof(_aRefX);
@@ -211,7 +212,7 @@ void		  SpiTouchEmwin_CalibrateLoad(uint8_t	*StoreCalibrateData)
 	GUI__memcpy(&ySize,StoreCalibrateData,sizeof(ySize));
 	StoreCalibrateData+=sizeof(ySize);
   
-  GUI_TOUCH_CalcCoefficients(NUM_CALIB_POINTS,_aRefX,_aRefY,_aSamX,_aSamY, xSize, ySize);
+  GUI_TOUCH_CalcCoefficients(NUM_CALIB_POINTS,(int*)_aRefX,(int*)_aRefY,(int*)_aSamX,(int*)_aSamY, xSize, ySize);
 }
 //#############################################################################################################################
 void	SpiTouchEmwin_Test(void)

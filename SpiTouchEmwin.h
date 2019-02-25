@@ -1,7 +1,7 @@
 #ifndef _SPITOUCHEMWIN_H
 #define _SPITOUCHEMWIN_H
 
-// 	Spi Touch xpt2046						version 1V01
+// 	Spi Touch xpt2046						version 1V02
 //	"Nima Askari"								www.github.com/NimaLTD
 
 
@@ -10,7 +10,7 @@
 #include "spi.h"
 
 //###########################################################################################
-extern 		uint8_t			SpiTouchEmwin_CalibrateData[128];
+extern 		uint8_t			SpiTouchEmwin_CalibrateData[88];
 //###########################################################################################
 bool 			SpiTouchEmwin_Init(osPriority Priority);
 bool   		SpiTouchEmwin_CalibrateRun(uint8_t	*StoreCalibrateData);
